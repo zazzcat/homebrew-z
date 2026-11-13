@@ -2,14 +2,14 @@
 class Zazzle < Formula
   desc "Agent file tools: zazzle, its zazzled daemon, a C# code indexer, free-disk-space and fix-network"
   homepage "https://github.com/david-brandt-the-icelander/software-developers-toolbox"
-  url "https://github.com/david-brandt-the-icelander/software-developers-toolbox/releases/download/v1.2.1/zazzle-macos-universal.tar.gz"
-  version "1.2.1"
-  sha256 "e39c8d1aa773742d16cfbeced2f8fa0e857d717ec910b18a0a1f79ab9df358b1"
+  url "https://github.com/david-brandt-the-icelander/software-developers-toolbox/releases/download/v1.2.2/zazzle-macos-universal.tar.gz"
+  version "1.2.2"
+  sha256 "e7db1fa83a0c44d9067bad634d3809e32c051a0140b4cc14605ec87368c9abaa"
   license "Unlicense"
 
   bottle do
-    root_url "https://github.com/david-brandt-the-icelander/software-developers-toolbox/releases/download/v1.2.1"
-    sha256 cellar: :any_skip_relocation, all: "a355d88e4513cb795e70c699e354031148203efa64cd55657887332dc2cf3c6d"
+    root_url "https://github.com/david-brandt-the-icelander/software-developers-toolbox/releases/download/v1.2.2"
+    sha256 cellar: :any_skip_relocation, all: "40e81a5e3c19a894ae9c520e46a8e44b806f158f177509c3fd5e35f59db8253f"
   end
 
   depends_on :macos
@@ -17,13 +17,21 @@ class Zazzle < Formula
   def install
     bin.install "zazzle", "zazzled", "afs", "fix-network", "free-disk-space"
     (libexec/"indexer").install "zazzle-csharp-indexer-arm64.gz", "zazzle-csharp-indexer-x64.gz"
+    (bin/"zazzle-csharp-indexer").write <<~SH
+      #!/bin/sh
+      echo "zazzle-csharp-indexer is not set up yet; run: brew postinstall zazzle" >&2
+      exit 1
+    SH
+    chmod 0755, bin/"zazzle-csharp-indexer"
   end
 
-  # Expand the C# indexer for this CPU (compressed to keep the download and the bottle small).
-  def post_install
-    arch = Hardware::CPU.arm? ? "arm64" : "x64"
-    system "sh", "-c", 'gunzip -c "$1" > "$2" && chmod 755 "$2"', "sh",
-           libexec/"indexer/zazzle-csharp-indexer-#{arch}.gz", bin/"zazzle-csharp-indexer"
+  # Expand the C# indexer for this CPU over the placeholder, which brew linked before post-install ran.
+  post_install_steps do
+    run "/bin/sh",
+        args:           ["-c", 'set -e; a=x64; [ "$(uname -m)" = arm64 ] && a=arm64; gunzip -c "$1/zazzle-csharp-indexer-$a.gz" > "$2.tmp"; chmod 755 "$2.tmp"; mv -f "$2.tmp" "$2"',
+                         "sh", "{{libexec}}/indexer", "{{bin}}/zazzle-csharp-indexer"],
+        writable_paths: ["zazzle-csharp-indexer", "zazzle-csharp-indexer.tmp"],
+        writable_base:  :bin
   end
 
   test do
