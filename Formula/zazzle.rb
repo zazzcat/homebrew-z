@@ -2,20 +2,21 @@
 class Zazzle < Formula
   desc "Agent tools: zazzle, zazzled, a C# indexer, cyberspace-generator and macOS fixers"
   homepage "https://github.com/david-brandt-the-icelander/software-developers-toolbox"
-  url "https://github.com/david-brandt-the-icelander/software-developers-toolbox/releases/download/v1.2.11/zazzle-macos-universal.tar.gz"
-  version "1.2.11"
-  sha256 "b6258b00bd6e7a230fd8a3954bd8de73a2899bcb3254dc1d4a6e1178d59679f0"
+  url "https://github.com/david-brandt-the-icelander/software-developers-toolbox/releases/download/v1.2.12/zazzle-macos-universal.tar.gz"
+  version "1.2.12"
+  sha256 "497981f9b9794ad15a32921c5abc481ebb9db6d1f9327421da3e5cc6597f3d30"
   license "Unlicense"
 
   bottle do
-    root_url "https://github.com/david-brandt-the-icelander/software-developers-toolbox/releases/download/v1.2.11"
-    sha256 cellar: :any_skip_relocation, all: "494d4cde9745fd8a7619d9e2bcfd49514a5c487d045254d76c41bc56cc9ed5ca"
+    root_url "https://github.com/david-brandt-the-icelander/software-developers-toolbox/releases/download/v1.2.12"
+    sha256 cellar: :any_skip_relocation, all: "3b43d214725b11d537ca496ddbca5b6c1c74ef6cb83e8147b00aa24d0096f902"
   end
 
   depends_on :macos
 
   def install
     bin.install "zazzle", "zazz", "zazzled", "zazz-worker", "afs", "fix-network", "free-disk-space", "cyberspace-generator"
+    bin.install_symlink "zazzle" => "z"
     (libexec/"indexer").install "zazzle-csharp-indexer-arm64.gz", "zazzle-csharp-indexer-x64.gz"
     (bin/"zazzle-csharp-indexer").write <<~SH
       #!/bin/sh
@@ -36,6 +37,7 @@ class Zazzle < Formula
 
   test do
     assert_match "zazzle", shell_output("#{bin}/zazzle version")
+    assert_match "zazzle", shell_output("#{bin}/z version")
     assert_match "zazzled", shell_output("#{bin}/zazzled --version")
     assert_match "zazz", shell_output("#{bin}/zazz help")
     assert_match "zazz-worker", shell_output("#{bin}/zazz-worker version")
