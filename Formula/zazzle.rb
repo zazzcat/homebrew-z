@@ -2,20 +2,20 @@
 class Zazzle < Formula
   desc "Agent tools: zazzle, zazzled, a C# indexer, cyberspace-generator and macOS fixers"
   homepage "https://github.com/david-brandt-the-icelander/software-developers-toolbox"
-  url "https://github.com/david-brandt-the-icelander/software-developers-toolbox/releases/download/v1.2.14/zazzle-macos-universal.tar.gz"
-  version "1.2.14"
-  sha256 "a912da4f008d61c2e8add0afb801799bee225aedfc22292bcecb0cd26bdcb161"
+  url "https://github.com/david-brandt-the-icelander/software-developers-toolbox/releases/download/v1.2.16/zazzle-macos-universal.tar.gz"
+  version "1.2.16"
+  sha256 "a6bedf7831e98ab2968ceb5db8d4d1a0ce562907f205f8ed45fa58785b28e1a0"
   license "Unlicense"
 
   bottle do
-    root_url "https://github.com/david-brandt-the-icelander/software-developers-toolbox/releases/download/v1.2.14"
-    sha256 cellar: :any_skip_relocation, all: "8b0afa0469fad9766488f247aafb7ba33c1901c4ac93c046c49cb68706b7a27e"
+    root_url "https://github.com/david-brandt-the-icelander/software-developers-toolbox/releases/download/v1.2.16"
+    sha256 cellar: :any_skip_relocation, all: "92f8dd2003967c974dd7e8629d6b0c93a855884d1b1d63fd6dbb78ffb183c70e"
   end
 
   depends_on :macos
 
   def install
-    bin.install "zazzle", "zazz", "zazzled", "zazz-worker", "afs", "fix-network", "free-disk-space", "cyberspace-generator"
+    bin.install "zazzle", "zazz", "zazzled", "zazz-worker", "afs", "fix-network", "free-disk-space", "zazzle-git", "zazzle-git-commit", "zazzle-git-commit-message-editor", "cyberspace-generator"
     bin.install_symlink "zazzle" => "z"
     (libexec/"indexer").install "zazzle-csharp-indexer-arm64.gz", "zazzle-csharp-indexer-x64.gz"
     (bin/"zazzle-csharp-indexer").write <<~SH
@@ -43,6 +43,7 @@ class Zazzle < Formula
     assert_match "zazz-worker", shell_output("#{bin}/zazz-worker version")
     assert_match "fix-network", shell_output("#{bin}/fix-network --version")
     assert_match "free-disk-space", shell_output("#{bin}/free-disk-space --version")
+    assert_match "zazzle-git", shell_output("#{bin}/zazzle-git --version")
     assert_match "agent-fs", shell_output("#{bin}/afs --version")
     assert_match "zazzle-csharp-indexer", shell_output("#{bin}/zazzle-csharp-indexer --version")
     assert_match "cyberspace-generator", shell_output("#{bin}/cyberspace-generator --version")
