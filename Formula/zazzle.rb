@@ -2,14 +2,14 @@
 class Zazzle < Formula
   desc "Agent tools: zazzle, zazzled, a C# indexer, cyberspace-generator and macOS fixers"
   homepage "https://github.com/david-brandt-the-icelander/software-developers-toolbox"
-  url "https://github.com/david-brandt-the-icelander/software-developers-toolbox/releases/download/v1.2.16/zazzle-macos-universal.tar.gz"
-  version "1.2.16"
-  sha256 "a6bedf7831e98ab2968ceb5db8d4d1a0ce562907f205f8ed45fa58785b28e1a0"
+  url "https://github.com/david-brandt-the-icelander/software-developers-toolbox/releases/download/v1.2.20/zazzle-macos-universal.tar.gz"
+  version "1.2.20"
+  sha256 "83d31105f8d61c502a0400727ee4bf5975b74edf16c6ccb88e849a993cd66176"
   license "Unlicense"
 
   bottle do
-    root_url "https://github.com/david-brandt-the-icelander/software-developers-toolbox/releases/download/v1.2.16"
-    sha256 cellar: :any_skip_relocation, all: "92f8dd2003967c974dd7e8629d6b0c93a855884d1b1d63fd6dbb78ffb183c70e"
+    root_url "https://github.com/david-brandt-the-icelander/software-developers-toolbox/releases/download/v1.2.20"
+    sha256 cellar: :any_skip_relocation, all: "b90f43ce6c4427208d54ed9c1583fdcff5fe7b1ed90afe02be62d309abf944d3"
   end
 
   depends_on :macos
