@@ -1,21 +1,21 @@
 # Homebrew formula for zazzle; written by macos/release/formula.sh on each release.
 class Zazzle < Formula
-  desc "Agent file tools: zazzle, its zazzled daemon, a C# code indexer, free-disk-space and fix-network"
+  desc "Agent tools: zazzle, zazzled, a C# indexer, cyberspace-generator and macOS fixers"
   homepage "https://github.com/david-brandt-the-icelander/software-developers-toolbox"
-  url "https://github.com/david-brandt-the-icelander/software-developers-toolbox/releases/download/v1.2.6/zazzle-macos-universal.tar.gz"
-  version "1.2.6"
-  sha256 "82e4d417f29dc7823d345cb3944516f01ec70043034ce32d403c0ba47769ae67"
+  url "https://github.com/david-brandt-the-icelander/software-developers-toolbox/releases/download/v1.2.11/zazzle-macos-universal.tar.gz"
+  version "1.2.11"
+  sha256 "b6258b00bd6e7a230fd8a3954bd8de73a2899bcb3254dc1d4a6e1178d59679f0"
   license "Unlicense"
 
   bottle do
-    root_url "https://github.com/david-brandt-the-icelander/software-developers-toolbox/releases/download/v1.2.6"
-    sha256 cellar: :any_skip_relocation, all: "81414f5773500f06791aadb02fef539d6b841854605ec95e2f3a57005b2a3880"
+    root_url "https://github.com/david-brandt-the-icelander/software-developers-toolbox/releases/download/v1.2.11"
+    sha256 cellar: :any_skip_relocation, all: "494d4cde9745fd8a7619d9e2bcfd49514a5c487d045254d76c41bc56cc9ed5ca"
   end
 
   depends_on :macos
 
   def install
-    bin.install "zazzle", "zazzled", "afs", "fix-network", "free-disk-space"
+    bin.install "zazzle", "zazz", "zazzled", "zazz-worker", "afs", "fix-network", "free-disk-space", "cyberspace-generator"
     (libexec/"indexer").install "zazzle-csharp-indexer-arm64.gz", "zazzle-csharp-indexer-x64.gz"
     (bin/"zazzle-csharp-indexer").write <<~SH
       #!/bin/sh
@@ -37,9 +37,12 @@ class Zazzle < Formula
   test do
     assert_match "zazzle", shell_output("#{bin}/zazzle version")
     assert_match "zazzled", shell_output("#{bin}/zazzled --version")
+    assert_match "zazz", shell_output("#{bin}/zazz help")
+    assert_match "zazz-worker", shell_output("#{bin}/zazz-worker version")
     assert_match "fix-network", shell_output("#{bin}/fix-network --version")
     assert_match "free-disk-space", shell_output("#{bin}/free-disk-space --version")
     assert_match "agent-fs", shell_output("#{bin}/afs --version")
     assert_match "zazzle-csharp-indexer", shell_output("#{bin}/zazzle-csharp-indexer --version")
+    assert_match "cyberspace-generator", shell_output("#{bin}/cyberspace-generator --version")
   end
 end
