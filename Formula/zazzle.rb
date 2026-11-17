@@ -2,14 +2,14 @@
 class Zazzle < Formula
   desc "Agent tools: zazzle, zazzled, a C# indexer, cyberspace-generator and macOS fixers"
   homepage "https://github.com/david-brandt-the-icelander/software-developers-toolbox"
-  url "https://github.com/david-brandt-the-icelander/software-developers-toolbox/releases/download/v1.2.24/zazzle-macos-universal.tar.gz"
-  version "1.2.24"
-  sha256 "48f346306d28be753c0bc1f7c38151de245e1a9f5d3a3acbbba3e2b7878cf36f"
+  url "https://github.com/david-brandt-the-icelander/software-developers-toolbox/releases/download/v1.2.25/zazzle-macos-universal.tar.gz"
+  version "1.2.25"
+  sha256 "041226312928075a9d59e99cc8b666cba560432ce107dd0e11b9f9f5178ddd81"
   license "Unlicense"
 
   bottle do
-    root_url "https://github.com/david-brandt-the-icelander/software-developers-toolbox/releases/download/v1.2.24"
-    sha256 cellar: :any_skip_relocation, all: "7350088952f2fca595479c49fa72858c7399a55abb625622f551bee3b4cb91a2"
+    root_url "https://github.com/david-brandt-the-icelander/software-developers-toolbox/releases/download/v1.2.25"
+    sha256 cellar: :any_skip_relocation, all: "bcc10dc6b583396f57180ee435d1e5526b9ae924b8bcbcac417849a5eee1d32e"
   end
 
   depends_on :macos
@@ -33,6 +33,14 @@ class Zazzle < Formula
                          "sh", "{{libexec}}/indexer", "{{bin}}/zazzle-csharp-indexer"],
         writable_paths: ["zazzle-csharp-indexer", "zazzle-csharp-indexer.tmp"],
         writable_base:  :bin
+  end
+
+  # A daemon started by an older version keeps answering until it is replaced; say how after every install.
+  def caveats
+    <<~EOS
+      zazzle --version reports the running daemon's version. If it is older than 1.2.25, replace it with:
+        zazzled restart
+    EOS
   end
 
   test do
