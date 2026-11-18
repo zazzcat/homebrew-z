@@ -2,20 +2,20 @@
 class Zazzle < Formula
   desc "Agent tools: zazzle, zazzled, a C# indexer, cyberspace-generator and macOS fixers"
   homepage "https://github.com/david-brandt-the-icelander/software-developers-toolbox"
-  url "https://github.com/david-brandt-the-icelander/software-developers-toolbox/releases/download/v1.2.27/zazzle-macos-universal.tar.gz"
-  version "1.2.27"
-  sha256 "3b0f2cf75b6349bbbf9a69c288f055d0496a6d620ba799e8488c7345f07a9f3c"
+  url "https://github.com/david-brandt-the-icelander/software-developers-toolbox/releases/download/v1.2.28/zazzle-macos-universal.tar.gz"
+  version "1.2.28"
+  sha256 "a2ceea81cd4f6c824a326b6da9bb8148d42bb1ed09e07eb9ba60ccdaba994a39"
   license "Unlicense"
 
   bottle do
-    root_url "https://github.com/david-brandt-the-icelander/software-developers-toolbox/releases/download/v1.2.27"
-    sha256 cellar: :any_skip_relocation, all: "eec0d43ee739dff8da3bc528a582e4f5916b0259be8245549422bc62f9479047"
+    root_url "https://github.com/david-brandt-the-icelander/software-developers-toolbox/releases/download/v1.2.28"
+    sha256 cellar: :any_skip_relocation, all: "a66499f191db2f13c892ecc1fa3b64efb70028b181b0c6d3c0dfad34208a45e0"
   end
 
   depends_on :macos
 
   def install
-    bin.install "zazzle", "zazz", "zazzled", "zazz-worker", "afs", "fix-network", "free-disk-space", "zazzle-git", "zazzle-git-commit", "zazzle-git-commit-message-editor", "cyberspace-generator"
+    bin.install "zazzle", "zazz", "zazzled", "zazz-worker", "afs", "fix-network", "free-disk-space", "zazzle-git", "zazzle-git-commit", "zazzle-agent", "zazzle-git-commit-message-editor", "cyberspace-generator"
     bin.install_symlink "zazzle" => "z"
     (libexec/"indexer").install "zazzle-csharp-indexer-arm64.gz", "zazzle-csharp-indexer-x64.gz"
     (bin/"zazzle-csharp-indexer").write <<~SH
@@ -38,7 +38,7 @@ class Zazzle < Formula
   # A daemon started by an older version keeps answering until it is replaced; say how after every install.
   def caveats
     <<~EOS
-      zazzle --version reports the running daemon's version. If it is older than 1.2.27, replace it with:
+      zazzle --version reports the running daemon's version. If it is older than 1.2.28, replace it with:
         zazzled restart
     EOS
   end
@@ -52,6 +52,7 @@ class Zazzle < Formula
     assert_match "fix-network", shell_output("#{bin}/fix-network --version")
     assert_match "free-disk-space", shell_output("#{bin}/free-disk-space --version")
     assert_match "zazzle-git", shell_output("#{bin}/zazzle-git --version")
+    assert_match "zazzle-agent", shell_output("#{bin}/zazzle-agent --version")
     assert_match "agent-fs", shell_output("#{bin}/afs --version")
     assert_match "zazzle-csharp-indexer", shell_output("#{bin}/zazzle-csharp-indexer --version")
     assert_match "cyberspace-generator", shell_output("#{bin}/cyberspace-generator --version")
