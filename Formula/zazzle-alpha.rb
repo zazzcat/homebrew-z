@@ -2,14 +2,14 @@
 class ZazzleAlpha < Formula
   desc "Agent tools: zazzle, zazzled, a C# indexer, cyberspace-generator and macOS fixers"
   homepage "https://github.com/david-brandt-the-icelander/software-developers-toolbox"
-  url "https://github.com/david-brandt-the-icelander/software-developers-toolbox/releases/download/v1.2.30-alpha.1/zazzle-macos-universal.tar.gz"
-  version "1.2.30-alpha.1"
-  sha256 "055a72f7cf583247da2c30f7c988cd2ad2e2f0d2d574ca2ef68c814ea0420f8b"
+  url "https://github.com/david-brandt-the-icelander/software-developers-toolbox/releases/download/v1.2.31-alpha.1/zazzle-macos-universal.tar.gz"
+  version "1.2.31-alpha.1"
+  sha256 "655a3b69be5d1cf47ec4a7653e0eed9fb94b3f19d828bc64c7c7d42149db12cc"
   license "Unlicense"
 
   bottle do
-    root_url "https://github.com/david-brandt-the-icelander/software-developers-toolbox/releases/download/v1.2.30-alpha.1"
-    sha256 cellar: :any_skip_relocation, all: "74fd30d54e9a118dd4286281fbdc812913d6099d19c5e9280d27e9591c683eba"
+    root_url "https://github.com/david-brandt-the-icelander/software-developers-toolbox/releases/download/v1.2.31-alpha.1"
+    sha256 cellar: :any_skip_relocation, all: "941c2358aa3c67d8d45078fdaa428f1c6b636b4a403aad8e990d405d13a464dd"
   end
 
   depends_on :macos
@@ -39,7 +39,7 @@ class ZazzleAlpha < Formula
   # A daemon started by an older version keeps answering until it is replaced; say how after every install.
   def caveats
     <<~EOS
-      zazzle --version reports the running daemon's version. If it is older than 1.2.30-alpha.1, replace it with:
+      zazzle --version reports the running daemon's version. If it is older than 1.2.31-alpha.1, replace it with:
         zazzled restart
     EOS
   end
