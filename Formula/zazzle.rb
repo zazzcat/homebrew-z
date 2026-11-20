@@ -2,14 +2,14 @@
 class Zazzle < Formula
   desc "Agent tools behind one launcher: zazzle (and z), a C# indexer and macOS fixers"
   homepage "https://github.com/david-brandt-the-icelander/zazzle"
-  url "https://github.com/david-brandt-the-icelander/zazzle/releases/download/v1.3.0/zazzle-macos-universal.tar.gz"
-  version "1.3.0"
-  sha256 "013980a382a426298361bc8579f8881d0bdd882b3b25f8657f79cb89c1f3654d"
+  url "https://github.com/david-brandt-the-icelander/zazzle/releases/download/v1.4.0/zazzle-macos-universal.tar.gz"
+  version "1.4.0"
+  sha256 "a8dcbd3dc9b00e22cb7d1ff0b3f49f4b7f2e1cb4c46b294887d999c1bea9bc4d"
   license "Unlicense"
 
   bottle do
-    root_url "https://github.com/david-brandt-the-icelander/zazzle/releases/download/v1.3.0"
-    sha256 cellar: :any_skip_relocation, all: "9a83832d1246d7915e21d1394d846fe1e36d8e9032580845331ae2c4a2fbd215"
+    root_url "https://github.com/david-brandt-the-icelander/zazzle/releases/download/v1.4.0"
+    sha256 cellar: :any_skip_relocation, all: "b703f7297d0a8537fc900fd9b5271d59b0e55880b93b8bbf6749601769c7fcad"
   end
 
   depends_on :macos
@@ -49,7 +49,7 @@ class Zazzle < Formula
   def caveats
     <<~EOS
       Every tool runs through the launcher: zazzle TOOL ARGS (for example: zazzle daemon restart).
-      zazzle --version reports the running daemon's version. If it is older than 1.3.0, replace it with:
+      zazzle --version reports the running daemon's version. If it is older than 1.4.0, replace it with:
         zazzle daemon restart
       z is linked to zazzle unless another z was found. To keep z for something else:
         mkdir -p #{HOMEBREW_PREFIX}/etc/zazzle && touch #{HOMEBREW_PREFIX}/etc/zazzle/no-z && brew postinstall zazzle
