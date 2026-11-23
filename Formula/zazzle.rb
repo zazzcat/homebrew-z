@@ -2,22 +2,22 @@
 class Zazzle < Formula
   desc "Agent tools behind one launcher: zazzle (and z), a C# indexer and macOS fixers"
   homepage "https://github.com/david-brandt-the-icelander/zazzle"
-  url "https://github.com/david-brandt-the-icelander/zazzle/releases/download/v1.5.0/zazzle-macos-universal.tar.gz"
-  version "1.5.0"
-  sha256 "6cad2abf25291f90e62e3dd3bbcddfbe4be99b6dca1809991fc4ae615f893f7b"
+  url "https://github.com/david-brandt-the-icelander/zazzle/releases/download/v1.6.0/zazzle-macos-universal.tar.gz"
+  version "1.6.0"
+  sha256 "e24dd40e96a0d51418f26ea4ce9744852d9aa7c189260014aa33a23289931249"
   license "Unlicense"
 
   bottle do
-    root_url "https://github.com/david-brandt-the-icelander/zazzle/releases/download/v1.5.0"
-    sha256 cellar: :any_skip_relocation, all: "10ff790f690b2f22591c26a6358e2a07fad521a35d78cc91c84463c56233a799"
+    root_url "https://github.com/david-brandt-the-icelander/zazzle/releases/download/v1.6.0"
+    sha256 cellar: :any_skip_relocation, all: "ddd77bcedeb47c5a9a4ca32def74644d21ab6e7edd0a38b10e546517290563aa"
   end
 
   depends_on :macos
 
-  # Only the launcher is linked; the tools stay in libexec/zazzle, where `zazzle TOOL` finds them.
+  # Only the launcher is linked; the daemon stays in libexec/zazzle, and `zazzle TOOL` has it fetch the other tools.
   def install
     bin.install "bin/zazzle"
-    (libexec/"zazzle").install "libexec/zazzle/daemon", "libexec/zazzle/zazz-script-runner", "libexec/zazzle/fix-network", "libexec/zazzle/free-disk-space", "libexec/zazzle/git-tools", "libexec/zazzle/git-tools-commit", "libexec/zazzle/git-tools-commit-message-editor", "libexec/zazzle/ai-agent-rules", "libexec/zazzle/cyberspace-generator"
+    (libexec/"zazzle").install "libexec/zazzle/daemon"
     (libexec/"indexer").install "libexec/indexer/csharp-indexer-arm64.gz", "libexec/indexer/csharp-indexer-x64.gz"
   end
 
@@ -49,7 +49,7 @@ class Zazzle < Formula
   def caveats
     <<~EOS
       Every tool runs through the launcher: zazzle TOOL ARGS (for example: zazzle daemon restart).
-      zazzle --version reports the running daemon's version. If it is older than 1.5.0, replace it with:
+      zazzle --version reports the running daemon's version. If it is older than 1.6.0, replace it with:
         zazzle daemon restart
       z is linked to zazzle unless another z was found. To keep z for something else:
         mkdir -p #{HOMEBREW_PREFIX}/etc/zazzle && touch #{HOMEBREW_PREFIX}/etc/zazzle/no-z && brew postinstall zazzle
@@ -60,12 +60,7 @@ class Zazzle < Formula
     assert_match "zazzle", shell_output("#{bin}/zazzle version")
     assert_match "daemon", shell_output("#{bin}/zazzle daemon --version")
     assert_match "zazz", shell_output("#{bin}/zazzle zazz help")
-    assert_match "zazz-script-runner", shell_output("#{libexec}/zazzle/zazz-script-runner version")
-    assert_match "fix-network", shell_output("#{bin}/zazzle fix-network --version")
-    assert_match "free-disk-space", shell_output("#{bin}/zazzle free-disk-space --version")
-    assert_match "git-tools", shell_output("#{bin}/zazzle git-tools --version")
-    assert_match "ai-agent-rules", shell_output("#{bin}/zazzle ai-agent-rules --version")
     assert_match "csharp-indexer", shell_output("#{bin}/zazzle csharp-indexer --version")
-    assert_match "cyberspace-generator", shell_output("#{bin}/zazzle cyberspace-generator --version")
+    assert_match "tools", shell_output("#{bin}/zazzle tools")
   end
 end
